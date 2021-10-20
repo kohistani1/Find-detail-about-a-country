@@ -26,9 +26,13 @@ const renderEl = (country, className) => {
       <p class="country__row"><span>💰</span>${country.currencies[0].name}</p>
     </div>
   </article>`;
-  countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+      countriesContainer.insertAdjacentHTML('beforeend', html);
+      countriesContainer.style.opacity = 1;
 };
+const renderErr = (err)=>{
+  countriesContainer.insertAdjacentText('afterend',`${err.message} 💥💥💥`)
+  console.log(`${err.message}`);
+}
 
 const getInfo = () => {
   const userChoice = inputEl.value;
@@ -61,9 +65,7 @@ const getInfo = () => {
     .then(data => {
       renderEl(data, 'neighbour');
       console.log(data);
-    });
-};
-
+})}
 // fetch(`https://geek-jokes.sameerkumar.website/api?format=json`)
 //   .then(response => response.json())
 //   .then(data => {
