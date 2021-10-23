@@ -68,6 +68,43 @@ const CreateImg = function (imgPath) {
   });
 };
 
+let currentImg;
+CreateImg('./img/img-1.jpg')
+  .then(img => {
+    console.log('img 1 loaded');
+    currentImg = img;
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+    return wait(2);
+  })
+  .then(() => {
+    return CreateImg('./img/img-2.jpg');
+  })
+  .then(img => {
+    console.log('img 2 loaded');
+    currentImg = img
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = 'none';
+    return wait(2);
+  })
+  .then(() => {
+    return CreateImg('./img/img-3.jpg');
+  })
+  .then(img => {
+    currentImg = img
+    console.log('img 2 loaded');
+    return wait(2);
+  }) 
+  .then(() => {
+    currentImg.style.display = 'none';
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 const getLocation = function () {
   return new Promise((resolve, reject) => {
