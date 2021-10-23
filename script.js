@@ -53,7 +53,7 @@ const getInfo = () => {
     });
 };
 
-const CreateImg = function (imgPath) {
+const CreateImg = async function (imgPath) {
   return new Promise(function (resolve, reject) {
     const img = document.createElement('img');
     img.src = imgPath;
@@ -63,7 +63,7 @@ const CreateImg = function (imgPath) {
       resolve(img);
     });
     img.addEventListener('error', function () {
-      reject(new Error('img not found'));
+      reject(new Error('Image not found'));
     });
   });
 };
@@ -80,7 +80,7 @@ CreateImg('./img/img-1.jpg')
     return wait(2);
   })
   .then(() => {
-    return CreateImg('./img/img-2.jpg');
+    return CreateImg('./img/img-37.jpg');
   })
   .then(img => {
     console.log('img 2 loaded');
@@ -103,8 +103,15 @@ CreateImg('./img/img-1.jpg')
     currentImg.style.display = 'none';
   })
   .catch(err => {
-    console.log(err);
+    const h3 = document.createElement('h2')
+   images.prepend(h3)
+   const h3El = document.querySelector('.images h2')
+   console.log(h3El);
+   h3El.innerHTML = `${err}`  
   });
+
+
+
 
 const getLocation = function () {
   return new Promise((resolve, reject) => {
@@ -156,6 +163,8 @@ const lotteryPromis = new Promise((resolve, reject) => {
     }
   }, 2000);
 });
+
+
 lotteryPromis.then(res => console.log(res)).catch(err => console.log(err));
 
 // const request = new XMLHttpRequest();
@@ -185,3 +194,12 @@ lotteryPromis.then(res => console.log(res)).catch(err => console.log(err));
 //   .then(res => res.json())
 //   .then(d => console.log('3rd joke: ', d.joke))
 //   .catch(err => console.error(`could not load data ${err.message}`));
+//////////////////////////////////////
+
+const getDataAsync = async function(){
+  const request = await (await fetch(`https://geek-jokes.sameerkumar.website/api?format=json`)).json()
+  // const {joke: myJoke} = await request.json()
+  console.log(request.joke);
+}
+
+getDataAsync()
